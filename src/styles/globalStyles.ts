@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
-  
   * {
     margin: 0;
     padding: 0;
@@ -10,22 +8,14 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
   
-  html, body {
+  html, body , #root{
     height: 100%;
     min-width: 375px;
-  }
 
-  html, body, input, button {
-    font-size: 18px;
-    font-family: 'Josefin Sans', sans-serif;
-    font-smooth: auto;
-    -webkit-font-smoothing: auto;
-    -moz-osx-font-smoothing: auto;
-    
     /* Primary Colors */
     --bright-blue: hsl(220, 98%, 61%);
-    --check-background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
-    
+    --check-background: linear-gradient(135deg, hsl(192, 100%, 67%) 0%, hsl(280, 87%, 65%)100%);
+
     /* Light Theme */
     --very-light-gray: hsl(0, 0%, 98%);
     --very-light-grayish-blue: hsl(236, 33%, 92%);
@@ -41,6 +31,19 @@ const GlobalStyle = createGlobalStyle`
     --dark-grayish-blue: hsl(234, 11%, 52%);
     --very-dark-grayish-blue: hsl(233, 14%, 35%);
     --very-dark-grayish-blue: hsl(237, 14%, 26%);
+  }
+
+  html, body, input, button {
+    font-size: 18px;
+    font-family: 'Josefin Sans', sans-serif;
+    -webkit-font-smoothing: antialiased !important;
+    text-decoration: none;
+    border: none;
+    outline: none;
+  }
+
+  ul {
+    list-style: none;
   }
 `
   

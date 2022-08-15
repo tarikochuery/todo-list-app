@@ -1,8 +1,9 @@
 import React from 'react'
+import Radio from './style'
 
 function RadioInput() {
   return (
-    <div>RadioInput</div>
+    <Radio></Radio>
   )
 }
 

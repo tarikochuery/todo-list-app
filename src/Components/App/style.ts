@@ -4,9 +4,9 @@ import styled from "styled-components";
 const AppStyle = styled.div`
   height: 100vh;
   width: 100%;
-  background-image: url('/images/bg-desktop-light.jpg');
+  background-image: url(${props => props.theme.bgImageDesktop});
   background-repeat: no-repeat;
-  background-color: var(--very-light-gray);
+  background-color: ${props => props.theme.colors.secondary.bgColor};
   background-size: contain;
 
   position: relative;
@@ -22,7 +22,6 @@ const AppContainer = styled.div`
   width: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
 `
 

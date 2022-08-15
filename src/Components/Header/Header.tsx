@@ -1,15 +1,28 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { ThemeContext } from 'styled-components'
 import HeaderStyle, { Logo } from './style'
 
-export default function Header() {
+interface HeaderProps{
+  changeTheme: () => void
+}
+
+const Header:React.FC<HeaderProps> = ({ changeTheme }) => {
+  const { icon } = useContext(ThemeContext)
+
   return (
     <HeaderStyle>
       <Logo>
         TODO
       </Logo>
-      <div className='theme-button-container'>
-        <img src="/images/icon-moon.svg" alt="" />
+      <div 
+        className='theme-button-container' 
+        style={{cursor: 'pointer'}}
+        onClick={changeTheme}
+      >
+        <img src={icon} alt="" />
       </div>
     </HeaderStyle>
   )
 }
+
+export default Header
