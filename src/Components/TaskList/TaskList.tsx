@@ -1,14 +1,16 @@
 import React from 'react'
+import { useContext } from 'react'
+import TaskListContext from '../../contexts/TextListContext/TaskListContext'
 import TaskCard from '../TaskCard/TaskCard'
 import { FooterButton, FooterButtonContainer, FooterContainer } from './style'
 
 function TaskList() {
+  const taskList = useContext(TaskListContext)
   return (
     <div>
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
-      <TaskCard />
+      {taskList.map(task => (
+        <TaskCard key={task.id} taskText={task.taskText}/>
+      ))}
       <FooterContainer>
         <p style={{width: '25%'}}>4 items left</p>
         <FooterButtonContainer>

@@ -8,12 +8,12 @@ import { DefaultTheme, ThemeProvider } from 'styled-components'
 import light from '../../styles/themes/light';
 import dark from '../../styles/themes/dark ';
 import usePersistedState from '../../hooks/usePersistedState';
-import TaskListContext, { Task } from '../../contexts/TextListContext/TaskListContext';
-import TaskListReducer, { TaskListReducerType } from '../../contexts/TextListContext/TaskListReducer';
+import TaskListContext from '../../contexts/TextListContext/TaskListContext';
+import TaskListReducer from '../../contexts/TextListContext/TaskListReducer';
 
 function App() {
   const [theme, setTheme] = usePersistedState<DefaultTheme>('theme',light)
-  const [state, dispatch] = useReducer(TaskListReducer, [])
+  const [taskList, dispatchTaskList] = useReducer(TaskListReducer, [])
 
   const changeTheme = () => {
     setTheme(theme.title === 'light' ? dark : light)
@@ -26,8 +26,8 @@ function App() {
         <TaskListContext.Provider value={taskList}>
           <AppContainer>
             <Header changeTheme={changeTheme} />
-            <InputTask addTask={addTask}/>
-            <TaskList deleteTask={deleteTask}/>
+            <InputTask dispatchTaskList={dispatchTaskList}/>
+            <TaskList />
           </AppContainer>
         </TaskListContext.Provider>
       </AppStyle>

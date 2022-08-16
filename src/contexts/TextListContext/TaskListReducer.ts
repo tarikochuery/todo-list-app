@@ -3,7 +3,7 @@ import TaskListFactory from './TaskListFactory'
 
 type TaskListReducerType = {
   type: 'ADD_TASK' | 'REMOVE_TASK' | 'COMPLETE_TASK' | 'CLEAR_COMPLETE_TASK' | 'FILTER_TASK',
-  newTask?: Task,
+  newTaskText?: string,
   removeTask?: Task,
   completeTask?: Task
   filter?: 'all' | 'completed' | 'active'
@@ -12,7 +12,7 @@ type TaskListReducerType = {
 const TaskListReducer = (state: Task[], action:TaskListReducerType) => {
   switch (action.type) {
     case 'ADD_TASK':
-      return TaskListFactory.addTask(state, action.newTask?.taskText)
+      return TaskListFactory.addTask(state, action.newTaskText)
     case 'REMOVE_TASK': 
       return TaskListFactory.removeTask(state, action.removeTask)
     case 'COMPLETE_TASK':
