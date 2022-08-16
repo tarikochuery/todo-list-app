@@ -1,4 +1,5 @@
 import { Task } from './TaskListContext'
+import { v4 as uuidv4 } from 'uuid'
 
 interface ITaskListFactory {
   addTask: (initialState: Task[], taskText: string|undefined) => Task[],
@@ -13,7 +14,7 @@ const taskListFactory: ITaskListFactory = {
     if (!taskText) return initialState
   
     const task:Task = {
-      id: Math.floor(Math.random() * 100), 
+      id: uuidv4(), 
       taskText,
       completed: false
     }
@@ -31,7 +32,7 @@ const taskListFactory: ITaskListFactory = {
     
     return initialState.map(task => {
       if (task.id === taskToBeCompleted.id) {
-        task.completed = !task.completed
+        task.completed = true
         return task
       }
 

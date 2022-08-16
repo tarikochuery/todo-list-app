@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 
 const FooterContainer = styled.div`
-  padding:20px;
+  min-width: 375px;
+  padding: 20px;
   background-color: ${props => props.theme.colors.secondary.bgCardColor};
   
   display: flex;
@@ -12,7 +13,7 @@ const FooterContainer = styled.div`
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: ${props => props.theme.colors.secondary.buttonColor};
 `
 
@@ -26,7 +27,7 @@ const FooterButtonContainer = styled.div`
 const FooterButton = styled.button`
   color: ${props => props.theme.colors.secondary.buttonColor};
   background-color: transparent;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   cursor: pointer;
 
   &:hover{

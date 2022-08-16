@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 
 const AppStyle = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
+  min-width: 375px;
   width: 100%;
   background-image: url(${props => props.theme.bgImageDesktop});
   background-repeat: no-repeat;
@@ -20,6 +22,7 @@ const AppStyle = styled.div`
 
 const AppContainer = styled.div`
   width: 40%;
+  min-width: 375px;
   display: flex;
   flex-direction: column;
   height: 100%;

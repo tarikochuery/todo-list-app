@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const TaskCardStyle = styled.div`
   width: 100%;
+  min-width: 375px;
   display: flex;
   justify-content: space-between;
   align-items: center;

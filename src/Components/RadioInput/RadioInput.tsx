@@ -1,9 +1,16 @@
 import React from 'react'
 import Radio from './style'
 
-function RadioInput() {
+interface Props {
+  onClick?: () => void
+  completed?: boolean
+}
+
+const RadioInput: React.FC<Props> = ({onClick, completed}) => {
   return (
-    <Radio></Radio>
+    <Radio completed={completed} onClick={onClick}>
+      {completed && <img src="/images/icon-check.svg" alt="" />}
+    </Radio>
   )
 }
 

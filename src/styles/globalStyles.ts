@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   html, body , #root{
-    height: 100%;
+    height: fit-content;
     min-width: 375px;
 
     /* Primary Colors */
