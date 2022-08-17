@@ -18,6 +18,10 @@ const AppStyle = styled.div`
   align-items: center;
 
   padding: 80px 30px;
+
+  @media (max-width: 756px) {
+    background-image: url(${props => props.theme.bgImageMobile});
+  }
 `
 
 const AppContainer = styled.div`
