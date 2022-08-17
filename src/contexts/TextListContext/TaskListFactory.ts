@@ -32,8 +32,8 @@ const taskListFactory: ITaskListFactory = {
     
     return initialState.map(task => {
       if (task.id === taskToBeCompleted.id) {
-        task.completed = true
-        return task
+        const completed = !task.completed
+        return {...task, completed}
       }
 
       return task
