@@ -23,10 +23,20 @@ interface Props {
   children: React.ReactNode
 }
 
+const getPersistedTaskList = () => {
+  const persistedTaskList = localStorage.getItem('taskList')
+
+  if (persistedTaskList) {
+    return JSON.parse(persistedTaskList) as Task[]
+  }
+
+  return []
+}
+
 const TaskListContext = createContext<ITaskListContext | null>(null)
 
 const TaskListProvider: React.FC<Props> = ({ children }) => {
-  const [taskList, dispatcher] = useReducer(TaskListReducer, [])
+  const [taskList, dispatcher] = useReducer(TaskListReducer, getPersistedTaskList())
 
   const taskActions: ItaskActions = {
     addTask: (newTaskText) => {

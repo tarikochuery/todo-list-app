@@ -6,7 +6,10 @@ interface ITaskListFactory {
   removeTask: (initialState: Task[], taskToBeRemoved: Task | undefined) => Task[],
   toogleCompleteTask: (initialState: Task[], taskToBeCompleted: Task | undefined) => Task[],
   clearCompleteTasks: (initialState: Task[]) => Task[],
-  filterList: (initialState: Task[], filter: 'all' | 'completed' | 'active' | undefined) => Task[]
+}
+
+const persistState = (key: string, state: any) => {
+  localStorage.setItem(key, JSON.stringify(state))
 }
 
 const taskListFactory: ITaskListFactory = {
@@ -18,48 +21,35 @@ const taskListFactory: ITaskListFactory = {
       taskText,
       completed: false
     }
-  
+    
+    persistState('taskList', [...initialState, task])
     return [...initialState, task]
   },
 
   removeTask(initialState, taskToBeRemoved) {
     if (!taskToBeRemoved) return initialState
+    persistState('taskList', initialState.filter(listedTask => listedTask.id !== taskToBeRemoved.id))
     return initialState.filter(listedTask => listedTask.id !== taskToBeRemoved.id)
   },
 
   toogleCompleteTask(initialState, taskToBeCompleted) {
-      if(!taskToBeCompleted) return initialState
-    
-    return initialState.map(task => {
-      if (task.id === taskToBeCompleted.id) {
-        const completed = !task.completed
-        return {...task, completed}
-      }
+    if(!taskToBeCompleted) return initialState
 
-      return task
+    const newTaskList = initialState.map(task => {
+        if (task.id === taskToBeCompleted.id) {
+          const completed = !task.completed
+          return {...task, completed}
+        }
+
+        return task
     })
+    persistState('taskList', newTaskList)
+    return newTaskList
   },
 
   clearCompleteTasks(initialState) {
+    persistState('taskList', initialState.filter(task => !task.completed))
     return initialState.filter(task => !task.completed)
-  },
-
-  filterList(initialState, filter) {
-    if (!filter) return initialState
-
-    switch (filter) {
-      case 'all':
-        return initialState
-        
-      case 'active':
-        return initialState.filter(task => !task.completed)
-        
-      case 'completed':
-        return initialState.filter(task => task.completed)
-        
-      default:
-        return initialState
-    }
   },
 }
 
