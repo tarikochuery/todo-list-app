@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+interface ButtonProps {
+  isFilterSelected?: boolean
+}
 
 const FooterContainer = styled.div`
   min-width: 375px;
@@ -18,13 +21,13 @@ const FooterContainer = styled.div`
 `
 
 const FooterButtonContainer = styled.div`
-  width: 30%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
   background-color: transparent;
 `
 
-const FooterButton = styled.button`
+const FooterButton = styled.button<ButtonProps>`
   color: ${props => props.theme.colors.secondary.buttonColor};
   background-color: transparent;
   font-size: 0.7rem;
