@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useContext } from 'react'
 import TaskCard from '../TaskCard/TaskCard'
 import { FooterButton, FooterButtonContainer, FooterContainer } from './style'
@@ -20,7 +20,11 @@ const TaskList = () => {
     }
   }, [theme])
 
-  const filter = (filter: 'all' | 'completed' | 'active', e: React.MouseEvent) => {
+  const numberOfUncompletedTasks = useMemo(() => {
+    return taskList.filter(task => task.completed === false).length
+  }, [taskList])
+
+  const filter = useCallback((filter: 'all' | 'completed' | 'active', e: React.MouseEvent) => {
     const button = e.target as HTMLButtonElement
     clearSiblingsClickedStyle(e)
     button.style.color = theme.colors.primary.buttonSelectedColor
@@ -36,7 +40,7 @@ const TaskList = () => {
         setFilteredList(taskList.filter(task => task.completed === true))
         break
     }
-  }
+  }, [taskList, theme, setFilteredList, clearSiblingsClickedStyle])
      
   useEffect(() => {
     setFilteredList(taskList)
@@ -48,7 +52,7 @@ const TaskList = () => {
         <TaskCard key={task.id} task={task}/>
       ))}
       <FooterContainer>
-        <p style={{width: '25%'}}>4 items left</p>
+        <p style={{width: '25%'}}>{numberOfUncompletedTasks} items left</p>
         <FooterButtonContainer>
           <FooterButton onClick={(e) => { filter('all', e) }}>All</FooterButton>
           <FooterButton onClick={(e) => { filter('active', e) }}>Active</FooterButton>
