@@ -1,12 +1,13 @@
 import { Task } from './TaskListContext'
 import { v4 as uuidv4 } from 'uuid'
+import produce from 'immer'
 
 interface ITaskListFactory {
   addTask: (initialState: Task[], taskText: string|undefined) => Task[],
   removeTask: (initialState: Task[], taskToBeRemoved: Task | undefined) => Task[],
   toogleCompleteTask: (initialState: Task[], taskToBeCompleted: Task | undefined) => Task[],
   clearCompleteTasks: (initialState: Task[]) => Task[],
-  move?: (initialState: Task[], from: number | undefined, to: number | undefined) => void
+  move: (initialState: Task[], from: number | undefined, to: number | undefined) => Task[]
 }
 
 const persistState = (key: string, state: any) => {
@@ -55,8 +56,14 @@ const taskListFactory: ITaskListFactory = {
   },
 
   move(initialState, from, to) {
-    console.log(from, to)
-    return initialState
+    return produce(initialState, draft => {
+      if (typeof from !== 'number' || typeof to !== 'number') return
+      const dragged = draft[from]
+
+      draft.splice(from, 1)
+      draft.splice(to, 0, dragged)
+      persistState('taskList', draft)
+    })
   },
 }
 

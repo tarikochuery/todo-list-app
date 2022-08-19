@@ -20,8 +20,8 @@ const TaskListReducer = (state: Task[], action:TaskListReducerType) => {
       return TaskListFactory.toogleCompleteTask(state, action.completeTask)
     case 'CLEAR_COMPLETE_TASK':
       return TaskListFactory.clearCompleteTasks(state)
-    // case 'MOVE':
-    //   return TaskListFactory.move(state, action.draggedIndex, action.targetIndex)
+    case 'MOVE':
+      return TaskListFactory.move(state, action.draggedIndex, action.targetIndex)
     default:
       return state
   }

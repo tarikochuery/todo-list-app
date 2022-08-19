@@ -13,7 +13,7 @@ interface ItaskActions {
   removeTask: (removedTask: Task) => void,
   completeTask: (completedTask: Task) => void,
   clearCompletedTask: () => void,
-
+  move: (from: number, to: number) => void
 }
 
 interface ITaskListContext {
@@ -64,11 +64,13 @@ const TaskListProvider: React.FC<Props> = ({ children }) => {
         type: 'CLEAR_COMPLETE_TASK'
       })
     },
-    // move: () => {
-    //   dispatcher({
-    //     type: 
-    //   })
-    // }
+    move: (from, to) => {
+      dispatcher({
+        type: "MOVE",
+        draggedIndex: from,
+        targetIndex: to
+      })
+    }
   }
 
   return (

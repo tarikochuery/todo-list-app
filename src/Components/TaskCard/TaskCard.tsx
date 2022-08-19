@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useRef } from 'react'
+import React, { useCallback, useContext, useRef } from 'react'
 import { ThemeContext } from 'styled-components'
 import { ITaskListContext, Task, TaskListContext } from '../../contexts/TextListContext/TaskListContext'
 import RadioInput from '../RadioInput/RadioInput'
@@ -7,10 +7,11 @@ import { useDrag, useDrop, XYCoord } from 'react-dnd'
 
 interface Props {
   task: Task,
+  idx: number
 }
 
-const TaskCard: React.FC<Props> = ({ task }) => {
-  const { taskList } = useContext(TaskListContext) as ITaskListContext
+const TaskCard: React.FC<Props> = ({ task, idx }) => {
+  const { taskActions: { move } } = useContext(TaskListContext) as ITaskListContext
   const { taskText, completed } = task
   const { taskActions: { removeTask, completeTask } } = useContext(TaskListContext) as ITaskListContext
   const { colors } = useContext(ThemeContext)
@@ -19,7 +20,7 @@ const TaskCard: React.FC<Props> = ({ task }) => {
 
   const [{ isDragging }, dragRef] =  useDrag({
     type: 'CARD',
-    item: {idx: task.idx},
+    item: {idx},
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
@@ -29,7 +30,7 @@ const TaskCard: React.FC<Props> = ({ task }) => {
     accept: 'CARD',
     hover: (item: Task, monitor) => {
       const draggedIndex = item.idx
-      const targetIndex = task.idx
+      const targetIndex = idx
 
       if (draggedIndex === targetIndex) return
 
@@ -43,6 +44,9 @@ const TaskCard: React.FC<Props> = ({ task }) => {
 
       if (draggedIndex > targetIndex && draggedTop > targetCenter) return
       
+      move(draggedIndex, targetIndex)
+
+      item.idx = targetIndex
     }
   })
 

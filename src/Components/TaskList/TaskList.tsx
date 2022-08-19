@@ -48,8 +48,8 @@ const TaskList = () => {
 
   return (
     <div>
-      {filteredList.map(task => (
-        <TaskCard key={task.id} task={task}/>
+      {filteredList.map((task, idx) => (
+        <TaskCard key={task.id} task={task} idx={idx}/>
       ))}
       <FooterContainer>
         <p style={{width: '25%'}}>{numberOfUncompletedTasks} items left</p>
