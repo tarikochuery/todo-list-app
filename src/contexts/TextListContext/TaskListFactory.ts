@@ -6,6 +6,7 @@ interface ITaskListFactory {
   removeTask: (initialState: Task[], taskToBeRemoved: Task | undefined) => Task[],
   toogleCompleteTask: (initialState: Task[], taskToBeCompleted: Task | undefined) => Task[],
   clearCompleteTasks: (initialState: Task[]) => Task[],
+  move?: (initialState: Task[], from: number | undefined, to: number | undefined) => void
 }
 
 const persistState = (key: string, state: any) => {
@@ -17,7 +18,8 @@ const taskListFactory: ITaskListFactory = {
     if (!taskText) return initialState
   
     const task:Task = {
-      id: uuidv4(), 
+      id: uuidv4(),
+      idx: initialState.length, 
       taskText,
       completed: false
     }
@@ -50,6 +52,11 @@ const taskListFactory: ITaskListFactory = {
   clearCompleteTasks(initialState) {
     persistState('taskList', initialState.filter(task => !task.completed))
     return initialState.filter(task => !task.completed)
+  },
+
+  move(initialState, from, to) {
+    console.log(from, to)
+    return initialState
   },
 }
 

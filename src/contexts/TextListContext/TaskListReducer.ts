@@ -2,10 +2,12 @@ import { Task } from './TaskListContext'
 import TaskListFactory from './TaskListFactory'
 
 type TaskListReducerType = {
-  type: 'ADD_TASK' | 'REMOVE_TASK' | 'COMPLETE_TASK' | 'CLEAR_COMPLETE_TASK',
+  type: 'ADD_TASK' | 'REMOVE_TASK' | 'COMPLETE_TASK' | 'CLEAR_COMPLETE_TASK' | 'MOVE',
   newTaskText?: string,
   removeTask?: Task,
-  completeTask?: Task
+  completeTask?: Task,
+  draggedIndex?: number,
+  targetIndex?: number
 }
 
 const TaskListReducer = (state: Task[], action:TaskListReducerType) => {
@@ -18,6 +20,8 @@ const TaskListReducer = (state: Task[], action:TaskListReducerType) => {
       return TaskListFactory.toogleCompleteTask(state, action.completeTask)
     case 'CLEAR_COMPLETE_TASK':
       return TaskListFactory.clearCompleteTasks(state)
+    // case 'MOVE':
+    //   return TaskListFactory.move(state, action.draggedIndex, action.targetIndex)
     default:
       return state
   }

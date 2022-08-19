@@ -9,6 +9,8 @@ import light from '../../styles/themes/light';
 import dark from '../../styles/themes/dark ';
 import usePersistedState from '../../hooks/usePersistedState';
 import TaskListProvider from '../../contexts/TextListContext/TaskListContext';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 function App() {
   const [theme, setTheme] = usePersistedState<DefaultTheme>('theme',light)
@@ -18,18 +20,20 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <AppStyle>
-        <TaskListProvider>
-          <AppContainer>
-            <Header changeTheme={changeTheme} />
-            <InputTask  />
-            <TaskList />
-          </AppContainer>
-        </TaskListProvider>
-      </AppStyle>
-    </ThemeProvider>
+    <DndProvider backend={HTML5Backend}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <AppStyle>
+          <TaskListProvider>
+            <AppContainer>
+              <Header changeTheme={changeTheme} />
+              <InputTask  />
+              <TaskList />
+            </AppContainer>
+          </TaskListProvider>
+        </AppStyle>
+      </ThemeProvider>
+    </DndProvider>
   );
 }
 

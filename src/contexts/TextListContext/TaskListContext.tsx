@@ -3,6 +3,7 @@ import TaskListReducer from "./TaskListReducer";
 
 interface Task {
   id: string,
+  idx: number
   taskText: string, 
   completed: boolean
 }
@@ -12,6 +13,7 @@ interface ItaskActions {
   removeTask: (removedTask: Task) => void,
   completeTask: (completedTask: Task) => void,
   clearCompletedTask: () => void,
+
 }
 
 interface ITaskListContext {
@@ -62,6 +64,11 @@ const TaskListProvider: React.FC<Props> = ({ children }) => {
         type: 'CLEAR_COMPLETE_TASK'
       })
     },
+    // move: () => {
+    //   dispatcher({
+    //     type: 
+    //   })
+    // }
   }
 
   return (
